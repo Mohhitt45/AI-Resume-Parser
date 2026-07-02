@@ -3,3 +3,14 @@ uvicorn
 python-multipart
 pdfminer.six
 spacy
+streamlit
+fastapi
+uvicorn
+requests
+pandas
+numpy
+scikit-learn
+transformers
+torch
+reportlab
+python-multipart
