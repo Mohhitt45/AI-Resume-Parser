@@ -183,7 +183,7 @@ if "result" in st.session_state and st.session_state["result"]:
 
     ats_score = ats.get("ats_score", 0)
 
-    match_score = result.get("match_score", 0)
+    match_score = result.get["match_score"]
 
     col1, col2 = st.columns(2)
 
