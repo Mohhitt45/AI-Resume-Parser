@@ -148,7 +148,7 @@ if analyze:
         }
 
         response = requests.post(
-            f"{BASE_URL}/match_resume_bert",
+            f"{BASE_URL}/match_resume",
             files=files,
             data=data,
             timeout=60
