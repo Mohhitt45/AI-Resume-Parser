@@ -179,11 +179,11 @@ if "result" in st.session_state and st.session_state["result"]:
 
     info = parsed.get("basic_info", {})
 
-    ats = result["ats"]
+    ats = result.get("ats", {"ats_score": 0})
 
     ats_score = ats.get("ats_score", 0)
 
-    match_score = result.get["match_score"]
+    match_score = result.get("match_score", 0)
 
     col1, col2 = st.columns(2)
 
