@@ -2,6 +2,8 @@ from pdf_generator import create_report
 import streamlit as st
 import requests
 
+BASE_URL = "https://mohhitt45-ai-resume-parser.hf.space"
+
 
 # ------------------------------
 # Page Configuration
@@ -146,9 +148,10 @@ if analyze:
         }
 
         response = requests.post(
-            "http://localhost:8000/match_resume_bert",
+            f"{BASE_URL}/match_resume_bert",
             files=files,
-            data=data
+            data=data,
+            timeout=60
         )
 
     if response.status_code != 200:
@@ -164,7 +167,7 @@ if analyze:
 # RESULTS DASHBOARD
 # ============================================
 
-if "result" in st.session_state:
+if "result" in st.session_state and st.session_state["result"]:
 
     result = st.session_state["result"]
 
@@ -174,11 +177,11 @@ if "result" in st.session_state:
 
     parsed = result["resume_data"]
 
-    info = parsed["basic_info"]
+    info = parsed.get("basic_info", {})
 
     ats = result["ats"]
 
-    ats_score = ats["ats_score"]
+    ats_score = ats.get("ats_score", 0)
 
     match_score = result.get("match_score", 0)
 
@@ -222,13 +225,13 @@ if "result" in st.session_state:
     c1, c2, c3 = st.columns(3)
 
     with c1:
-        st.info(f"**Name**\n\n{info['name']}")
+        st.info(f"**Name**\n\n{info.get("name", "N/A")}")
 
     with c2:
-        st.info(f"**Email**\n\n{info['email']}")
+        st.info(f"**Email**\n\n{info.get("email", "N/A")}")
 
     with c3:
-        st.info(f"**Phone**\n\n{info['phone']}")
+        st.info(f"**Phone**\n\n{info.get("phone", "N/A")}")
 
     st.divider()
 
@@ -272,7 +275,7 @@ if "result" in st.session_state:
 
     st.subheader("🛠 Extracted Skills")
 
-    skills = parsed["skills"]
+    skills = parsed.get("skills", [])
 
     cols = st.columns(4)
 
