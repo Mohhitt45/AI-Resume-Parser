@@ -3,9 +3,7 @@ uvicorn
 python-multipart
 pdfminer.six
 spacy
-streamlit
 requests
-pandas
 numpy
 scikit-learn
 sentence-transformers
