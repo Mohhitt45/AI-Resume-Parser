@@ -175,7 +175,7 @@ if "result" in st.session_state and st.session_state["result"]:
 
     st.header("📊 Analysis Report")
 
-    parsed = result["resume_data"]
+    parsed = result.get("resume_data", {})
 
     info = parsed.get("basic_info", {})
 
