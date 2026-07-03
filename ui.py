@@ -146,7 +146,7 @@ if analyze:
         }
 
         response = requests.post(
-            "http://127.0.0.1:8000/match_resume_bert",
+            "http://localhost:8000/match_resume_bert",
             files=files,
             data=data
         )
