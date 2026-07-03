@@ -98,3 +98,8 @@ async def match_resume_bert(
     "matched_skills": matched,
     "missing_skills": missing
 }
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
