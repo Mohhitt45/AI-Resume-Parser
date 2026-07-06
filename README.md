@@ -1,3 +1,15 @@
+---
+title: AI Resume Intelligence System
+emoji: 📄
+colorFrom: blue
+colorTo: indigo
+sdk: streamlit
+app_file: ui.py
+pinned: false
+---
+
+
+
 # AI Resume Parser (NLP + FastAPI)
 
 ## 🚀 Overview
