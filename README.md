@@ -1,12 +1,12 @@
 \---
 
-title: AI Resume Backend
+title: AI Resume Intelligence System
 
-emoji: 🚀
+emoji: 📄
 
 colorFrom: blue
 
-colorTo: purple
+colorTo: indigo
 
 sdk: docker
 
