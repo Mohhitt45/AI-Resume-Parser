@@ -1,5 +1,7 @@
 fastapi
 uvicorn
 python-multipart
-requests
 reportlab
+requests
+sentence-transformers
+torch
