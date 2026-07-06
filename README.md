@@ -52,7 +52,7 @@ An AI-powered backend system that parses resumes and performs intelligent job ma
 flowchart TD
 
 A[Resume PDF Upload] --> B[Text Extraction]
-B --> C[NLP Processing (spaCy + Regex)]
+B --> C["NLP Processing (spaCy + Regex)"]
 C --> D[Skill Extraction]
 D --> E[ATS Scoring Engine]
 D --> F[BERT Embedding Model]
@@ -60,6 +60,9 @@ F --> G[Semantic Job Matching]
 E --> H[Final JSON Response]
 G --> H
 H --> I[API Response via FastAPI]
+```
+
+---
 
 ## 📌 API Endpoints
 
@@ -78,7 +81,7 @@ Returns:
 
 ---
 
-## 🛠 Tech Stack
+## 🛠 Tech Stack (Detailed)
 
 Python • FastAPI • spaCy • BERT • scikit-learn • Docker  
 
@@ -99,3 +102,4 @@ Uvicorn server on port 7860
   "match_score": 75,
   "skills": ["python", "fastapi", "nlp"]
 }
+```
