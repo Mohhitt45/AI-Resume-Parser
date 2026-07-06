@@ -39,8 +39,8 @@ D --> F[BERT Embedding Model]
 F --> G[Semantic Job Matching]
 E --> H[Final JSON Response]
 G --> H
-
 H --> I[API Response<br/>FastAPI Endpoint]
+
 ---
 
 ## 📌 API Endpoints
