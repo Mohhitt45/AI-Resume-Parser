@@ -1,7 +1,8 @@
 fastapi
-uvicorn
+uvicorn[standard]
 python-multipart
-reportlab
 requests
+reportlab
 sentence-transformers
 torch
+pdfminer.six
