@@ -12,6 +12,22 @@ pinned: false
 
 An AI-powered backend system that parses resumes and performs intelligent job matching using NLP and semantic analysis.
 
+## 🚀 Tech Stack
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![NLP](https://img.shields.io/badge/NLP-BERT%2FTransformers-orange?style=for-the-badge)
+
+## ✨ Highlights
+
+- 🚀 Built an end-to-end AI Resume Parser system
+- 🧠 Uses NLP / Transformer-based models for text understanding
+- ⚡ FastAPI backend for high-performance API processing
+- 🐳 Dockerized for easy deployment and portability
+- 📊 Extracts structured insights from unstructured resumes
+- 🔍 Modular architecture with scalable design
+
 ---
 
 ## ⚙️ Features
