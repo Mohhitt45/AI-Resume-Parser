@@ -1,16 +1,14 @@
 \---
 
-title: AI Resume Intelligence System
+title: AI Resume Backend
 
-emoji: 📄
+emoji: 🚀
 
 colorFrom: blue
 
 colorTo: indigo
 
 sdk: docker
-
-app\_file: app.py
 
 pinned: false
 
