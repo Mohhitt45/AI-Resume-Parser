@@ -38,7 +38,7 @@ async def parse_resume_api(file: UploadFile = File(...)):
 @app.post("/match_resume")
 async def match_resume(
     file: UploadFile = File(...),
-    job_description: str = ""
+    job_description: str = Form("")
 ):
 
     file_path = f"temp_{file.filename}"
@@ -46,58 +46,29 @@ async def match_resume(
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    # Extract text from resume
+    # Extract text
     resume_text = extract_text_from_pdf(file_path)
 
-    # Parse structured data
+    # Parse resume
     parsed = parse_resume(resume_text)
 
-    # Match score (TF-IDF cosine similarity)
-    score = calculate_match_score(resume_text, job_description)
+    # BERT score
+    score = calculate_bert_match(resume_text, job_description)
+
+    # Skills
+    matched, missing = analyze_skills(resume_text, job_description)
+
+    # ATS score
+    ats = calculate_ats_score(resume_text, job_description)
 
     return {
         "status": "success",
         "resume_data": parsed,
-        "job_match_score": score
+        "match_score": score,
+        "ats": ats,
+        "matched_skills": matched,
+        "missing_skills": missing
     }
-
-
-
-@app.post("/match_resume_bert")
-async def match_resume_bert(
-    file: UploadFile = File(...),
-    job_description: str = ""
-):
-
-    file_path = f"temp_{file.filename}"
-
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-
-    resume_text = extract_text_from_pdf(file_path)
-
-    parsed = parse_resume(resume_text)
-
-    score = calculate_bert_match(resume_text, job_description)
-
-    matched, missing = analyze_skills(
-    resume_text,
-    job_description
-)
-    ats = calculate_ats_score(
-    resume_text,
-    job_description
-)
-
-    return {
-    "status": "success",
-    "model": "BERT Semantic Matching",
-    "resume_data": parsed,
-    "match_score": score,
-    "ats": ats,
-    "matched_skills": matched,
-    "missing_skills": missing
-}
 
 if __name__ == "__main__":
     import uvicorn
