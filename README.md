@@ -7,3 +7,61 @@ sdk: docker
 app_port: 7860
 pinned: false
 ---
+
+🚀 AI Resume Intelligence System
+
+An AI-powered backend system that parses resumes and performs intelligent job matching using NLP and semantic analysis.
+
+⚙️ Features
+📄 Resume PDF parsing
+🧠 AI-based skill extraction
+🎯 ATS score calculation
+🤖 BERT-based semantic matching
+🔍 Job Description matching
+📊 Matched & missing skills detection
+📡 FastAPI backend API
+
+🧠 Architecture
+Resume PDF
+   ↓
+Text Extraction
+   ↓
+NLP Parser (spaCy + Regex)
+   ↓
+Skill Extraction + ATS Scoring
+   ↓
+BERT Semantic Matching
+   ↓
+JSON Response API
+
+📌 API Endpoints
+🔹 POST /parse_resume
+
+Upload resume PDF and extract structured data.
+
+🔹 POST /match_resume
+
+Compare resume with job description and return:
+
+ATS score
+match score
+skills comparison
+
+🛠 Tech Stack
+Python
+FastAPI
+spaCy
+BERT embeddings
+scikit-learn
+Docker
+
+🚀 Deployment
+HuggingFace Spaces (Docker)
+Uvicorn server on port 7860
+
+📊 Output Example
+{
+  "ats_score": 90,
+  "match_score": 75,
+  "skills": ["python", "fastapi", "nlp"]
+}
