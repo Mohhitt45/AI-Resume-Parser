@@ -47,19 +47,39 @@ def extract_phone(text):
 def extract_links(text):
     text = text.replace("\n", " ")
 
-    linkedin = re.search(
-        r"(https?://)?(www\.)?linkedin\.com/in/[a-zA-Z0-9\-_/]+",
-        text
+    # normalize spacing
+    text = re.sub(r"\s+", " ", text)
+
+    linkedin = None
+    github = None
+
+    # LinkedIn (handles "LinkedIn :", "LinkedIn :-")
+    li_match = re.search(
+        r"linkedin\s*[:\-]?\s*(https?://[^\s]+|www\.linkedin\.com/[^\s]+|linkedin\.com/[^\s]+)",
+        text,
+        re.IGNORECASE
     )
 
-    github = re.search(
-        r"(https?://)?(www\.)?github\.com/[a-zA-Z0-9\-_/]+",
-        text
+    if li_match:
+        linkedin = li_match.group(1)
+        if not linkedin.startswith("http"):
+            linkedin = "https://" + linkedin
+
+    # GitHub
+    gh_match = re.search(
+        r"github\s*[:\-]?\s*(https?://[^\s]+|www\.github\.com/[^\s]+|github\.com/[^\s]+)",
+        text,
+        re.IGNORECASE
     )
+
+    if gh_match:
+        github = gh_match.group(1)
+        if not github.startswith("http"):
+            github = "https://" + github
 
     return {
-        "linkedin": linkedin.group() if linkedin else None,
-        "github": github.group() if github else None
+        "linkedin": linkedin,
+        "github": github
     }
 
 
