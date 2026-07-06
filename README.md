@@ -26,10 +26,21 @@ An AI-powered backend system that parses resumes and performs intelligent job ma
 
 ---
 
-## 🧠 Architecture
+### 🧠 Architecture Diagram
 
-Resume PDF → Text Extraction → NLP Parser (spaCy + Regex) → Skill Extraction → ATS Scoring → BERT Matching → JSON API Response  
+```mermaid
+flowchart TD
 
+A[Resume PDF Upload] --> B[Text Extraction]
+B --> C[NLP Processing<br/>spaCy + Regex]
+C --> D[Skill Extraction]
+D --> E[ATS Scoring Engine]
+D --> F[BERT Embedding Model]
+F --> G[Semantic Job Matching]
+E --> H[Final JSON Response]
+G --> H
+
+H --> I[API Response<br/>FastAPI Endpoint]
 ---
 
 ## 📌 API Endpoints
