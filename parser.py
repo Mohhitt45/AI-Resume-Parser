@@ -16,48 +16,63 @@ def extract_email(text):
 # PHONE EXTRACTION (ROBUST)
 # -----------------------------
 def extract_phone(text):
-    # normalize text first (VERY IMPORTANT)
     text = text.replace("\n", " ")
     text = re.sub(r"\s+", " ", text)
 
     patterns = [
-        r"\+?\d{1,3}[-.\s]?\d{5}[-.\s]?\d{5}",     # +91 98765 43210
-        r"\+?\d{1,3}[-.\s]?\d{10}",                # +919876543210
-        r"\b\d{10}\b",                             # 10 digit
-        r"\b\d{5}[-.\s]\d{5}\b",                  # 98765-43210
-        r"\(\d{3}\)\s*\d{3}[-.\s]\d{4}"           # US format
+        r"\+?\d{1,3}[-.\s]?\d{5}[-.\s]?\d{5}",
+        r"\+?\d{1,3}[-.\s]?\d{10}",
+        r"\b\d{10}\b",
+        r"\b\d{5}[-.\s]\d{5}\b",
+        r"\(\d{3}\)\s*\d{3}[-.\s]\d{4}"
     ]
 
-    # also try raw continuous search (important fix)
     compact_text = re.sub(r"[^\d+]", "", text)
 
-    # try patterns first
     for pattern in patterns:
         match = re.search(pattern, text)
         if match:
-            phone = match.group()
-            phone = re.sub(r"[^\d+]", "", phone)
-            return phone
+            return re.sub(r"[^\d+]", "", match.group())
 
-    # fallback: detect 10-digit inside noisy string
     match = re.search(r"\d{10}", compact_text)
     if match:
         return match.group()
 
     return None
 
+
 # -----------------------------
-# NAME EXTRACTION (IMPROVED)
+# LINKEDIN + GITHUB EXTRACTION
+# -----------------------------
+def extract_links(text):
+    text = text.replace("\n", " ")
+
+    linkedin = re.search(
+        r"(https?://)?(www\.)?linkedin\.com/in/[a-zA-Z0-9\-_/]+",
+        text
+    )
+
+    github = re.search(
+        r"(https?://)?(www\.)?github\.com/[a-zA-Z0-9\-_/]+",
+        text
+    )
+
+    return {
+        "linkedin": linkedin.group() if linkedin else None,
+        "github": github.group() if github else None
+    }
+
+
+# -----------------------------
+# NAME EXTRACTION
 # -----------------------------
 def extract_name(text):
     doc = nlp(text)
 
-    # 1. spaCy PERSON entity
     for ent in doc.ents:
         if ent.label_ == "PERSON":
             return ent.text
 
-    # 2. fallback heuristic (first meaningful line)
     lines = text.split("\n")
     for line in lines[:5]:
         line = line.strip()
@@ -101,7 +116,7 @@ def extract_education(text):
 
 
 # -----------------------------
-# SKILL EXTRACTION (STATIC DB)
+# SKILL EXTRACTION
 # -----------------------------
 def extract_skills(text):
     skills_db = [
@@ -126,14 +141,11 @@ def extract_skills(text):
 def calculate_ats_score(text, skills):
     score = 0
 
-    # skills weightage
     score += len(skills) * 3
 
-    # length check
     if 1000 < len(text) < 8000:
         score += 10
 
-    # keyword boost
     keywords = ["project", "experience", "machine learning", "python", "data"]
 
     for k in keywords:
@@ -147,13 +159,16 @@ def calculate_ats_score(text, skills):
 # MAIN PARSER
 # -----------------------------
 def parse_resume(text):
+    links = extract_links(text)
     skills = extract_skills(text)
 
     return {
         "basic_info": {
             "name": extract_name(text),
             "email": extract_email(text),
-            "phone": extract_phone(text)
+            "phone": extract_phone(text),
+            "linkedin": links["linkedin"],
+            "github": links["github"]
         },
         "skills": skills,
         "education": extract_education(text),
