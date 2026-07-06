@@ -26,7 +26,7 @@ An AI-powered backend system that parses resumes and performs intelligent job ma
 
 ---
 
-### 🧠 Architecture Diagram
+## 🧠 Architecture Diagram
 
 ```mermaid
 flowchart TD
