@@ -16,23 +16,33 @@ def extract_email(text):
 # PHONE EXTRACTION (ROBUST)
 # -----------------------------
 def extract_phone(text):
+    # normalize text first (VERY IMPORTANT)
+    text = text.replace("\n", " ")
+    text = re.sub(r"\s+", " ", text)
+
     patterns = [
-        r"\+?\d{1,3}[\s-]?\d{10}",              # +91 9876543210
-        r"\+?\d{1,3}[\s-]?\d{5}[\s-]?\d{5}",    # +91 98765 43210
-        r"\b\d{10}\b",                          # 10-digit
-        r"\b\d{5}[\s-]\d{5}\b",                # 98765-43210
-        r"\(\d{3}\)\s*\d{3}-\d{4}"             # (123) 456-7890
+        r"\+?\d{1,3}[-.\s]?\d{5}[-.\s]?\d{5}",     # +91 98765 43210
+        r"\+?\d{1,3}[-.\s]?\d{10}",                # +919876543210
+        r"\b\d{10}\b",                             # 10 digit
+        r"\b\d{5}[-.\s]\d{5}\b",                  # 98765-43210
+        r"\(\d{3}\)\s*\d{3}[-.\s]\d{4}"           # US format
     ]
 
+    # also try raw continuous search (important fix)
+    compact_text = re.sub(r"[^\d+]", "", text)
+
+    # try patterns first
     for pattern in patterns:
         match = re.search(pattern, text)
         if match:
             phone = match.group()
-
-            # normalize phone (remove spaces, brackets, dashes)
             phone = re.sub(r"[^\d+]", "", phone)
-
             return phone
+
+    # fallback: detect 10-digit inside noisy string
+    match = re.search(r"\d{10}", compact_text)
+    if match:
+        return match.group()
 
     return None
 
