@@ -21,16 +21,20 @@ def extract_phone(text):
         r"\+?\d{1,3}[\s-]?\d{5}[\s-]?\d{5}",    # +91 98765 43210
         r"\b\d{10}\b",                          # 10-digit
         r"\b\d{5}[\s-]\d{5}\b",                # 98765-43210
-        r"\(\d{3}\)\s*\d{3}-\d{4}"            # (123) 456-7890
+        r"\(\d{3}\)\s*\d{3}-\d{4}"             # (123) 456-7890
     ]
 
     for pattern in patterns:
         match = re.search(pattern, text)
         if match:
-            return match.group()
+            phone = match.group()
+
+            # normalize phone (remove spaces, brackets, dashes)
+            phone = re.sub(r"[^\d+]", "", phone)
+
+            return phone
 
     return None
-
 
 # -----------------------------
 # NAME EXTRACTION (IMPROVED)
@@ -113,11 +117,11 @@ def calculate_ats_score(text, skills):
     score = 0
 
     # skills weightage
-    score += len(skills) * 5
+    score += len(skills) * 3
 
     # length check
-    if 500 < len(text) < 5000:
-        score += 20
+    if 1000 < len(text) < 8000:
+        score += 10
 
     # keyword boost
     keywords = ["project", "experience", "machine learning", "python", "data"]
