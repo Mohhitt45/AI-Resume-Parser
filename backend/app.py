@@ -1,12 +1,12 @@
 from fastapi import FastAPI, UploadFile, File, Form 
 import shutil
 
-from utils import extract_text_from_pdf
-from parser import parse_resume
-from matcher import calculate_match_score
-from bert_matcher import calculate_bert_match
-from matcher import analyze_skills
-from ats import calculate_ats_score
+from backend.utils import extract_text_from_pdf
+from backend.parser import parse_resume
+from backend.matcher import calculate_match_score
+from backend.bert_matcher import calculate_bert_match
+from backend.matcher import analyze_skills
+from backend.ats import calculate_ats_score
 
 app = FastAPI()
 
