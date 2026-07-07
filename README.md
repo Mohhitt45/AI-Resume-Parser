@@ -94,6 +94,38 @@ Uvicorn server on port 7860
 
 ---
 
+## 📸 Application Demo
+
+### 🏠 Home Page
+
+![Home Page](assets/home.png)
+
+---
+
+### 📄 Resume Upload
+
+![Resume Upload](assets/upload.png)
+
+---
+
+### 📊 ATS & Match Score
+
+![ATS Score](assets/result.png)
+
+---
+
+### 📈 Skills & Resume Insights
+
+![Resume Insights](assets/result2.png)
+
+---
+
+### 📘 FastAPI Swagger Documentation
+
+![Swagger Documentation](assets/swagger.png)
+
+---
+
 ## 📊 Output Example
 
 ```json
